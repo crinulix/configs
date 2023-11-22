@@ -162,15 +162,17 @@ require('lazy').setup({
       end,
     },
   },
+  --  Gruvbox theme neovim
+  { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
 
-  {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'onedark'
-    end,
-  },
+ -- {
+ --   -- Theme inspired by Atom
+ --   'navarasu/onedark.nvim',
+ --   priority = 1000,
+ --   config = function()
+ --     vim.cmd.colorscheme 'onedark'
+ --   end,
+ -- },
 
   {
     -- Set lualine as statusline
@@ -632,6 +634,12 @@ vim.api.nvim_create_autocmd(
 )
 -- key binding for the neotree toggle 
 vim.keymap.set('n', '<C-b>', '<Cmd>Neotree toggle<CR>')
+
+-- colorscheme for Gruvbox
+
+vim.o.background = "dark" -- or "light" for light mode
+vim.cmd([[colorscheme gruvbox]])
+
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
