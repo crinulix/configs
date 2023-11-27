@@ -163,7 +163,9 @@ require('lazy').setup({
     },
   },
   --  Gruvbox theme neovim
-  { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
+  { "sainnhe/sonokai", priority = 1000 , config = true, opts = ...},
+  --  Gruvbox theme neovim
+  --{ "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
 
  -- {
  --   -- Theme inspired by Atom
@@ -638,8 +640,19 @@ vim.keymap.set('n', '<C-b>', '<Cmd>Neotree toggle<CR>')
 -- colorscheme for Gruvbox
 
 vim.o.background = "dark" -- or "light" for light mode
-vim.cmd([[colorscheme gruvbox]])
+vim.cmd([[colorscheme sonokai]])
 
-
+require'lspconfig'.pylsp.setup{
+  settings = {
+    pylsp = {
+      plugins = {
+        pycodestyle = {
+          ignore = {'W391'},
+          maxLineLength = 100
+        }
+      }
+    }
+  }
+}
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
