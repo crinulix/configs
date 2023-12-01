@@ -69,6 +69,26 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
+
+-- Nuno installing dadbod using
+  {
+    'kristijanhusak/vim-dadbod-ui',
+    dependencies = {
+      { 'tpope/vim-dadbod', lazy = true },
+      { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+    },
+    cmd = {
+      'DBUI',
+      'DBUIToggle',
+      'DBUIAddConnection',
+      'DBUIFindBuffer',
+    },
+    init = function()
+      -- Your DBUI configuration
+      vim.g.db_ui_use_nerd_fonts = 1
+    end,
+  },
+  
   -- Nuno Instlling neo-tree
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -105,7 +125,10 @@ require('lazy').setup({
       'folke/neodev.nvim',
     },
   },
-
+  {
+    -- Autocompletion buffer
+    'hrsh7th/cmp-buffer'
+  },
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -654,5 +677,19 @@ require'lspconfig'.pylsp.setup{
     }
   }
 }
+
+require('cmp').setup({
+  sources = {
+    {
+      name = 'buffer',
+      option = {
+        -- Options go into this table
+      },
+    },
+  },
+})
+
+
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
