@@ -269,6 +269,7 @@ require('lazy').setup({
   -- { import = 'custom.plugins' },
 }, {})
 
+
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
@@ -562,6 +563,14 @@ local servers = {
       telemetry = { enable = false },
     },
   },
+  pylsp = {
+    plugins = {
+      pycodestyle = {
+        ignore = {'W391'},
+        maxLineLength = 100
+      }
+    }
+  },
 }
 
 -- Setup neovim lua configuration
@@ -586,15 +595,17 @@ mason_lspconfig.setup_handlers {
       settings = servers[server_name],
       filetypes = (servers[server_name] or {}).filetypes,
     }
+    require("lspconfig").pylsp.setup {
+      capabilities = capabilities,
+    }
   end,
 }
-
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
 local cmp = require 'cmp'
-local luasnip = require 'luasnip'
-require('luasnip.loaders.from_vscode').lazy_load()
-luasnip.config.setup {}
+--local luasnip = require 'luasnip'
+--require('luasnip.loaders.from_vscode').lazy_load()
+--luasnip.config.setup {}
 
 cmp.setup {
   snippet = {
