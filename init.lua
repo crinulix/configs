@@ -69,6 +69,8 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
+-- Nuno installing vim-surround
+  'tpope/vim-surround',
 
 -- Nuno installing dadbod using
   {
@@ -657,6 +659,21 @@ vim.api.nvim_create_autocmd(
     end,
   }
 )
+
+vim.api.nvim_create_autocmd(
+  "BufWritePost", 
+  {
+  pattern = "*.html",
+    group = "AutoFormat",
+    callback = function ()
+--vim.cmd("silent !djlint . --reformat --format-css --format-js %") -- make everything nice but this is slow
+      vim.cmd("silent !djlint --reformat %")
+      vim.cmd("edit")
+    end,
+  }
+)
+
+
 -- key binding for the neotree toggle 
 vim.keymap.set('n', '<C-b>', '<Cmd>Neotree toggle<CR>')
 
@@ -688,8 +705,6 @@ require('cmp').setup({
     },
   },
 })
-
-
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
